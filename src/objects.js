@@ -1,15 +1,4 @@
-class Actor {
-  constructor(pos, size) {
-    this.pos = pos;
-    this.size = size;
-  }
-
-  update() {
-
-  }
-}
-
-class Vec {
+export class Vec {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -22,8 +11,19 @@ class Vec {
   }
 }
 
-class Player extends Vec {
-  static size = new Vec(0.8, 1.5);
+// class Actor {
+//   constructor(pos, size) {
+//     this.pos = pos;
+//     this.size = size;
+//   }
+
+//   update() {
+
+//   }
+// }
+
+export class Player {
+  // static size = new Vec(0.8, 1.5);
   constructor(pos, speed) {
     this.pos = pos;
     this.speed = speed;
@@ -35,8 +35,9 @@ class Player extends Vec {
     return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0, 0));
   }
 }
+Player.prototype.size = new Vec(0.8, 1.5);
 
-class Lava extends Actor {
+export class Lava {
   constructor(pos, speed, reset) {
     this.pos = pos;
     this.speed = speed;
@@ -57,8 +58,7 @@ class Lava extends Actor {
 }
 Lava.prototype.size = new Vec(1, 1);
 
-class Coin extends Actor {
-  static size = new Vec(0.6, 0.6);
+export class Coin {
   constructor(pos, basePos, wobble) {
     this.pos = pos;
     this.basePos = basePos;
@@ -72,3 +72,4 @@ class Coin extends Actor {
     return new Coin(basePos, basePos, Math.random() * Math.PI * 2);
   }
 }
+Coin.prototype.size = new Vec(0.6, 0.6);
