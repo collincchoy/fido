@@ -25,6 +25,9 @@ export abstract class Actor {
 
 export class Player extends Actor {
   static size = new Vec(0.8, 1.5);
+  static readonly xSpeed = 7;
+  static readonly gravity = 30;
+  static readonly jumpSpeed = 17;
   constructor(pos: Vec, public speed: Vec) {
     super(pos, Player.size);
   }
@@ -37,8 +40,29 @@ export class Player extends Actor {
     return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0, 0));
   }
 
+  update(time: number, state: State, keys) {
+    let xSpeed = 0;
+    if (keys.ArrowLeft) xSpeed -= Player.xSpeed;
+    if (keys.ArrowRight) xSpeed += Player.xSpeed;
+    let pos = this.pos;
+    let movedX = pos.plus(new Vec(xSpeed * time, 0));
+    if (!state.level.touches(movedX, this.size, "wall")) {
+      pos = movedX;
+    }
+
+    let ySpeed = this.speed.y + time * Player.gravity;
+    let movedY = pos.plus(new Vec(0, ySpeed * time));
+    if (!state.level.touches(movedY, this.size, "wall")) {
+      pos = movedY;
+    } else if (keys.ArrowUp && ySpeed > 0) {
+      ySpeed = -Player.jumpSpeed;
+    } else {
+      ySpeed = 0
+    }
+    return new Player(pos, new Vec(xSpeed, ySpeed));
+  }
+
   collide = state => state;
-  update = _ => this;
 }
 
 export class Lava extends Actor {
@@ -79,8 +103,8 @@ export class Lava extends Actor {
 
 export class Coin extends Actor {
   static size = new Vec(0.6, 0.6);
-  static wobbleSpeed = 8;
-  static wobbleDist = 0.07;
+  static readonly wobbleSpeed = 8;
+  static readonly wobbleDist = 0.07;
   constructor(public pos: Vec, public basePos: Vec, public wobble) {
     super(pos, Coin.size);
   }

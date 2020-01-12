@@ -58,7 +58,7 @@ export class DOMDisplay {
     this.dom.remove();
   }
 
-  synxState(state) {
+  syncState(state) {
     if (this.actorLayer) {
       this.actorLayer.remove();
     }
