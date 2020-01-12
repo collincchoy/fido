@@ -1,4 +1,4 @@
-import State from "./state";
+import State, { StateStatus } from "./state";
 
 export class Vec {
   constructor(public x: number, public y: number) {}
@@ -86,7 +86,7 @@ export class Lava extends Actor {
   }
 
   collide(state: State) {
-    return new State(state.level, state.actors, "lost");
+    return new State(state.level, state.actors, StateStatus.LOST);
   }
 
   update(time: number, state: State) {
@@ -121,7 +121,7 @@ export class Coin extends Actor {
   collide(state: State) {
     let filtered = state.actors.filter(a => a != this);
     let status = state.status;
-    if (!filtered.some(a => a.type == "coin")) status = "won";
+    if (!filtered.some(a => a.type == "coin")) status = StateStatus.WON;
     return new State(state.level, filtered, status);
   }
 

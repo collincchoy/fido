@@ -1,6 +1,6 @@
 import { Level } from "./level";
 
-import State from "./state";
+import State, { StateStatus } from "./state";
 
 function trackKeys(keys: string[]) {
   let down = Object.create(null);
@@ -34,11 +34,11 @@ function runLevel(level: Level, Display) {
   let display = new Display(document.body, level);
   let state = State.start(level);
   let ending = 1;
-  return new Promise(resolve => {
+  return new Promise((resolve: (status: StateStatus) => void) => {
     runAnimation(time => {
       state = state.update(time, arrowKeys);
       display.syncState(state);
-      if (state.status == "playing") {
+      if (state.status == StateStatus.PLAYING) {
         return true;
       } else if (ending > 0) {
         ending -= time;
@@ -53,9 +53,22 @@ function runLevel(level: Level, Display) {
 }
 
 export default async function runGame(plans: string[], Display) {
+  const livesToStartWith = 3;
+  let livesLeft = livesToStartWith;
   for (let level = 0; level < plans.length; ) {
+    console.log(`Lives: ${livesLeft}`);
     let status = await runLevel(new Level(plans[level]), Display);
-    if (status == "won") level++;
+    if (status === StateStatus.WON) level++;
+    else if (status === StateStatus.LOST) {
+      if (livesLeft > 0) livesLeft--;
+      else {
+        console.log("Game over! Out of lives!");
+        // reset
+        level = 0;
+        livesLeft = livesToStartWith;
+      }
+    }
+    console.log("You've won!");
   }
   console.log("You've won!");
 }
