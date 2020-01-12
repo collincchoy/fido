@@ -1,7 +1,7 @@
 import "./display.css";
 
 function elt(name, attrs, ...children) {
-  const dom = document.createElement(name);
+  const dom: HTMLElement = document.createElement(name);
   for (const attr of Object.keys(attrs)) {
     dom.setAttribute(attr, attrs[attr]);
   }
@@ -46,6 +46,8 @@ function drawActors(actors) {
 }
 
 export class DOMDisplay {
+  dom: HTMLElement;
+  actorLayer: HTMLElement | null;
   constructor(parent, level) {
     this.dom = elt("div", { class: "game" }, drawGrid(level));
     this.actorLayer = null;
@@ -56,7 +58,7 @@ export class DOMDisplay {
     this.dom.remove();
   }
 
-  static synxState(state) {
+  synxState(state) {
     if (this.actorLayer) {
       this.actorLayer.remove();
     }
@@ -66,7 +68,7 @@ export class DOMDisplay {
     this.scrollPlayerIntoView(state);
   }
 
-  static scrollPlayerIntoView(state) {
+  scrollPlayerIntoView(state) {
     const width = this.dom.clientWidth;
     const height = this.dom.clientHeight;
     const margin = width / 3;

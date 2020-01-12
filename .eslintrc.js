@@ -15,5 +15,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    "no-restricted-syntax": 0,
+    "max-classes-per-file": 17,
   },
 };
