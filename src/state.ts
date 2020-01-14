@@ -11,7 +11,7 @@ function overlap(actor1, actor2) {
 }
 
 export enum StateStatus {
-  PLAYING, WON, LOST
+  PLAYING, WON, LOST, PAUSED
 }
 
 export default class State {
@@ -26,10 +26,11 @@ export default class State {
   }
 
   update(time, keys) {
+    console.log(keys);
     const actors = this.actors.map(actor => actor.update(time, this, keys));
     let newState = new State(this.level, actors, this.status);
 
-    if (newState.status != StateStatus.PLAYING) return newState;
+    if (newState.status !== StateStatus.PLAYING) return newState;
 
     let player = newState.player;
     if (this.level.touches(player.pos, player.size, "lava")) {
