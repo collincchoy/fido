@@ -25,6 +25,10 @@
   position: relative;
 }
 
+.game.paused {
+  opacity: 0.3;
+}
+
 /**ACTORS**/
 
 .actor {

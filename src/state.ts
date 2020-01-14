@@ -33,7 +33,6 @@ export default class State {
   }
 
   update(time, keys) {
-    console.log(keys);
     const actors = this.actors.map(actor => actor.update(time, this, keys));
     let newState = new State(this.level, actors, this.status);
 

@@ -41,11 +41,12 @@ function runLevel(level: Level, Display) {
   let endingDelayLeft = 1;
   return new Promise((resolve: (status: StateStatus) => void) => {
     const runSingleFrame = (secondsPast: number) => {
-      if (state.status === StateStatus.PAUSED) return false;
       state = state.update(secondsPast, arrowKeys);
       display.syncState(state);
       if (state.status === StateStatus.PLAYING) {
         return true;
+      } else if (state.status === StateStatus.PAUSED) {
+        return false;
       } else if (endingDelayLeft > 0) {  // 1 second delay/ending phase
         endingDelayLeft -= secondsPast;
         return true;
