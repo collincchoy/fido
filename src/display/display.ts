@@ -1,4 +1,5 @@
 import "./display.css";
+import State from "../state";
 
 function elt(name, attrs, ...children) {
   const dom: HTMLElement = document.createElement(name);
@@ -58,7 +59,7 @@ export class DOMDisplay {
     this.dom.remove();
   }
 
-  syncState(state) {
+  syncState(state: State) {
     if (this.actorLayer) {
       this.actorLayer.remove();
     }
@@ -68,7 +69,7 @@ export class DOMDisplay {
     this.scrollPlayerIntoView(state);
   }
 
-  scrollPlayerIntoView(state) {
+  scrollPlayerIntoView(state: State) {
     const width = this.dom.clientWidth;
     const height = this.dom.clientHeight;
     const margin = width / 3;

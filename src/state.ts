@@ -11,11 +11,18 @@ function overlap(actor1, actor2) {
 }
 
 export enum StateStatus {
-  PLAYING, WON, LOST, PAUSED
+  PLAYING = "playing",
+  WON = "won",
+  LOST = "lost",
+  PAUSED = "paused"
 }
 
 export default class State {
-  constructor(public level: Level, public actors: Actor[], public status: StateStatus) {}
+  constructor(
+    public level: Level,
+    public actors: Actor[],
+    public status: StateStatus
+  ) {}
 
   static start(level) {
     return new State(level, level.startActors, StateStatus.PLAYING);
