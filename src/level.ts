@@ -60,7 +60,7 @@ class Level {
     for (let y = yStart; y < yEnd; y++) {
       for (let x = xStart; x < xEnd; x++) {
         const isOutside = (x < 0 || x >= this.width) ||
-          (y < 0 || y >= this.rows[y][x]);
+          (y < 0 || y >= this.height);
         const typeHere = isOutside ? "wall" : this.rows[y][x];
         if (typeHere == type) return true;
       }
