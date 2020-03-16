@@ -2,13 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { simpleLevelPlan } from "reactified/src/levels";
 import Tile from "reactified/src/components/Tile";
-import { LEVEL_SIZE } from "reactified/src/constants";
 
 const Level = styled.table`
   position: relative;
   background: rgb(52, 166, 251);
-  width: ${LEVEL_SIZE};
-  height: ${LEVEL_SIZE};
 `;
 
 const Row = styled.tr`
@@ -19,13 +16,17 @@ const Row = styled.tr`
 
 const Game: React.FC<{ plan?: string }> = ({ plan = simpleLevelPlan }) => {
   const renderLevel = () => {
-    const lines = plan.split("\n");
+    const lines = plan.trim().split("\n");
     return (
       <tbody>
         {lines.map((line: string, lineNo) => (
           <Row key={lineNo}>
             {line.split("").map((character, colNo) => (
-              <Tile key={colNo} type={character} />
+              <Tile
+                key={colNo}
+                type={character}
+                position={{ x: colNo, y: lineNo }}
+              />
             ))}
           </Row>
         ))}

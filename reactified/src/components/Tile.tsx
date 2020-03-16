@@ -42,7 +42,10 @@ const Coin = styled.div`
   animation: ${CoinSpin} 1s linear 0s infinite;
 `;
 
-const Tile: React.FC<{ type: string }> = ({ type }) => {
+const Tile: React.FC<{ type: string; position: { x: number; y: number } }> = ({
+  type,
+  position
+}) => {
   switch (type) {
     case "#":
       return <Wall />;
@@ -58,7 +61,7 @@ const Tile: React.FC<{ type: string }> = ({ type }) => {
     case "@":
       return (
         <StyledTile>
-          <Player />
+          <Player initialX={position.x} initialY={position.y} />
         </StyledTile>
       );
   }
