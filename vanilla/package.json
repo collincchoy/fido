@@ -1,0 +1,18 @@
+{
+  "name": "vanilla",
+  "version": "1.0.0",
+  "description": "A project from eloquent javascript with vanilla typescript.",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.4"
+  },
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "clean": "rm -r .cache dist"
+  }
+}
