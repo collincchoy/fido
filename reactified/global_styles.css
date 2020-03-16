@@ -1,0 +1,15 @@
+:root {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#root {
+  background-color: aquamarine;
+}
